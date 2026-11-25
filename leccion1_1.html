@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Lección 1.1</title>
+    <style>
+        .vidas,.mensaje {font-size:1.2rem;font-weight:bold;margin:10px 0;}
+        .correcto {color:green} .incorrecto {color:red}
+        .card {display:inline-block;margin:8px;text-align:center;cursor:pointer}
+        .card img {width:120px;height:120px;object-fit:cover;border-radius:8px;}
+        button {padding:8px 16px;cursor:pointer;margin-top:5px}
+        .seleccionado {border:3px solid blue; border-radius:8px;}
+    </style>
+</head>
+<body>
+    <h3>Palabra nueva</h3>
+    <h1>¿CUÁL DE ESTOS ES EL ROSA?</h1>
+    <div class="vidas">Vidas: <span id="vidas">❤️❤️❤️</span></div>
+    <div class="mensaje" id="msg"></div>
+    <div>
+        <div class="card" id="cardR">
+            <img src="img/777.jpg" alt="Rosa" id="imgR"><br>
+            <audio id="audioR" src="audio/Roxa.ogg">
+            <button id="btnR">Roxa</button>
+        </div>
+        <div class="card" id="cardN">
+            <img src="img/7.jpg" alt="Naranja" id="imgN"><br>
+            <audio id="audioN" src="audio/Naranxa.ogg">
+            <button id="btnN">Naranxa</button>
+        </div>
+        <div class="card" id="cardC">
+            <img src="img/77.jpg" alt="Café" id="imgC"><br>
+            <audio id="audioC" src="audio/boxo.ogg">
+            <button id="btnC">Boxo</button>
+        </div>
+    </div>
+    <button id="btnOk">Comprobar</button>
+
+    <script>
+        let vidas=3, sel=null;
+        const vidasEl=document.getElementById('vidas'), msgEl=document.getElementById('msg');
+
+        // --- FUNCIÓN SELECCIONAR ---
+        function elegir(opcion, idTarjeta) {
+            sel = opcion;
+            // Quitar borde de todos
+            ['cardR','cardN','cardC'].forEach(c => document.getElementById(c).classList.remove('seleccionado'));
+            // Poner borde azul a la elegida
+            document.getElementById(idTarjeta).classList.add('seleccionado');
+        }
+
+        // --- CLIC EN IMAGEN: suena audio + SELECCIONA ---
+        document.getElementById('imgR').onclick = () => {
+            document.getElementById('audioR').currentTime=0;
+            document.getElementById('audioR').play();
+            elegir('rosa','cardR');
+        };
+        document.getElementById('imgN').onclick = () => {
+            document.getElementById('audioN').currentTime=0;
+            document.getElementById('audioN').play();
+            elegir('naranja','cardN');
+        };
+        document.getElementById('imgC').onclick = () => {
+            document.getElementById('audioC').currentTime=0;
+            document.getElementById('audioC').play();
+            elegir('cafe','cardC');
+        };
+
+        // --- CLIC EN BOTÓN: también selecciona ---
+        document.getElementById('btnR').onclick = () => elegir('rosa','cardR');
+        document.getElementById('btnN').onclick = () => elegir('naranja','cardN');
+        document.getElementById('btnC').onclick = () => elegir('cafe','cardC');
+
+        // --- COMPROBAR Y AVANZAR ---
+        document.getElementById('btnOk').onclick = () => {
+            if(!sel){
+                msgEl.textContent="⚠️ Primero selecciona una opción";
+                msgEl.className="mensaje";
+                return;
+            }
+            if(sel==='rosa'){
+                msgEl.textContent="✅ ¡Correcto! Avanzando...";
+                msgEl.className="correcto";
+                setTimeout(()=>location.href='menu.html',1200);
+            }else{
+                vidas--;
+                if(vidas>0){
+                    msgEl.textContent="❌ Incorrecto. Inténtalo de nuevo.";
+                    msgEl.className="incorrecto";
+                    vidasEl.textContent='❤️'.repeat(vidas)+'❌'.repeat(3-vidas);
+                    sel=null;
+                    ['cardR','cardN','cardC'].forEach(c => document.getElementById(c).classList.remove('seleccionado'));
+                }else{
+                    vidasEl.textContent='❌❌❌';
+                    msgEl.textContent="Se acabaron las oportunidades";
+                    msgEl.className="incorrecto";
+                    document.getElementById('btnOk').disabled=true;
+                    ['btnR','btnN','btnC','imgR','imgN','imgC'].forEach(e => document.getElementById(e).style.pointerEvents='none');
+                }
+            }
+        };
+    </script>
+</body>
+</html>

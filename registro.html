@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#e9adad;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin: 0;
+        }
+
+        .formulario{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            width:400px;
+            box-shadow:0 0 10px rgba(0,0,0,.2);
+        }
+
+        .formulario h2{
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+            box-sizing: border-box;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            background:#28a745;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size: 16px;
+        }
+
+        button:hover{
+            background:#218838;
+        }
+
+        #mensaje{
+            margin-top:10px;
+            text-align:center;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="formulario">
+    <h2>Registro Usuario</h2>
+
+    <form id="formRegistro">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <input type="password" name="contrasena" placeholder="Contraseña" required>
+        <input type="date" name="fecha_nac" required>
+        <input type="text" name="pais" placeholder="País" required>
+        <input type="number" name="nivel" min="1" max="99" placeholder="Nivel" required>
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <p style="text-align:center;margin-top:15px;">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+</div>
+
+<script>
+document.getElementById("formRegistro")
+.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const datos = {
+        nombre: this.nombre.value,
+        email: this.email.value,
+        contrasena: this.contrasena.value,
+        fecha_nac: this.fecha_nac.value,
+        pais: this.pais.value,
+        nivel: this.nivel.value
+    };
+
+    try{
+        const respuesta = await fetch("registro.php",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(datos)
+        });
+
+        const resultado = await respuesta.json();
+        document.getElementById("mensaje").innerHTML = resultado.mensaje;
+
+        if(resultado.estado){
+            this.reset();
+            setTimeout(() => window.location.href = "menu.html", 1500);
+
+        }
+    }catch(error){
+        console.error(error);
+        document.getElementById("mensaje").innerHTML = "Error de conexión con el servidor";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cual de estos es el coloe amarillo?</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    .vidas { font-weight: bold; color: red; margin: 10px 0; }
+    .mensaje { margin: 10px 0; min-height: 25px; }
+    .correcto { color: green; }
+    .incorrecto { color: red; }
+    .desactivado { pointer-events: none; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <h3>Palabra nueva</h3>
+  <h1>Cual de estos es el color amarillo?</h1>
+
+  <!-- Vidas agregadas -->
+  <div class="vidas">Vidas: <span id="contador-vidas">3</span></div>
+
+  <div class="contenedor">
+    <div class="card" onclick="seleccionarRespuesta('kaxti')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfkUDqjMfsdOAzr-aa2UyVFUC7Kq70aVyFICmrj45FkQ&s=10" width="100">
+      <p>K'axti</p>
+      <button>1</button>
+    </div>
+    <div class="card" onclick="seleccionarRespuesta('kangl')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOH2H257A38aUXFdUMmg4PWep9OG_xl3UIUpPjy-kB1Q&s=10" alt="K'angl" width="100">
+      <p>K'angl</p>
+      <button>2</button>
+    </div>
+    <div class="card" onclick="seleccionarRespuesta('naranxa')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHoEXf0AQh2w0IqUWUUcazF9CVI09-YjRz4EbudjWkjg&s=10" alt="Naranxa" width="100">
+      <p>Naranxa</p>
+      <button>3</button>
+    </div>
+    <div class="card" onclick="seleccionarRespuesta('roxa')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSpYFI8HotiZ0BDss_QuH2-2iNjdqpDh59beRtl4OAaQ&s=10" alt="Roxa" width="100">
+      <p>Roxa</p>
+      <button>4</button>
+    </div>
+  </div>
+
+  <!-- Mensaje de respuesta -->
+  <div class="mensaje" id="mensaje"></div>
+
+  <div class="acciones">
+    <button class="comprobar">Comprobar</button>
+    <button class="saltar" onclick="window.location.href='leccion1_1.html'">Saltar</button>
+  </div>
+
+  <!-- Archivos de audio que ya tienes -->
+  <audio id="audio-kaxti" src="audio/K'axti.ogg">
+  <audio id="audio-naranxa" src="audio/Naranxa.ogg">
+  <audio id="audio-roxa" src="audio/Roxa.ogg">
+
+  <script>
+    let vidas = 3;
+    const respuestaCorrecta = 'kaxti';
+    const vidasEl = document.getElementById('contador-vidas');
+    const mensajeEl = document.getElementById('mensaje');
+    const tarjetas = document.querySelectorAll('.card');
+
+    function reproducirAudio(id) {
+      const audio = document.getElementById(id);
+      if (audio) {
+        audio.currentTime = 0;
+        audio.play().catch(e => {});
+      }
+    }
+
+    function bloquearOpciones() {
+      tarjetas.forEach(t => t.classList.add('desactivado'));
+    }
+
+    function seleccionarRespuesta(opcion) {
+      // Reproducir audio de la opción elegida
+      if (opcion === 'kaxti') reproducirAudio('audio-kaxti');
+      if (opcion === 'naranxa') reproducirAudio('audio-naranxa');
+      if (opcion === 'roxa') reproducirAudio('audio-roxa');
+
+      if (opcion === respuestaCorrecta) {
+        mensajeEl.textContent = "¡Correcto!";
+        mensajeEl.className = "mensaje correcto";
+        bloquearOpciones();
+        // Avanza automáticamente
+        setTimeout(() => {
+          window.location.href = 'leccion1_1.html';
+        }, 1200);
+      } else {
+        vidas--;
+        vidasEl.textContent = vidas;
+        mensajeEl.textContent = "Incorrecto";
+        mensajeEl.className = "mensaje incorrecto";
+        
+        if (vidas <= 0) {
+          bloquearOpciones();
+          mensajeEl.textContent = "Se acabaron las vidas";
+          setTimeout(() => location.reload(), 2000);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

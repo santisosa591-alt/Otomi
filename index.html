@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duolingo Otomí</title>
+    <link rel="stylesheet" href="messi.css">
+    <script>
+        function confirmarSalida() {
+            return confirm("¿Estás seguro de que quieres cerrar sesión?");
+        }
+    </script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo">
+            Duolingo Otomí
+            <span>APRENDE JUGANDO</span>
+        </div>
+        <ul class="menu-links">
+            <li><a href="index.html" class="active"><span class="icon"></span> Aprender</a></li>
+            <li><a href="vocales.html"><span class="icon"></span> Vocales</a></li>
+            <li><a href="consonantes.html"><span class="icon"></span> Consonantes</a></li>
+            <li><a href="perfil.html"><span class="icon"></span> Perfil</a></li>
+            <li><a href="juegos.html"><span class="icon"></span> Juegos</a></li>
+            <li class="divider"></li>
+            <li><a href="logout.php" class="logout" onclick="return confirmarSalida()">
+                <span class="icon"></span> Cerrar sesión
+            </a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <nav class="sub-nav">
+            <a href="#lugares">Lugares para visitar</a>
+            <a href="#comida">Comida tradicional</a>
+            <a href="#tradiciones">Tradiciones</a>
+        </nav>
+
+        <section>
+            <h3>Bienvenido al proyecto Otomí</h3>
+            <p>Aquí vas a conocer la cultura otomí: sus lugares, su comida y sus costumbres.</p>
+        </section>
+
+        <section id="lugares">
+            <h2>Lugares para visitar</h2>
+            <h3>Centro Ceremonial Otomí</h3>
+            <p>Centro Ceremonial Otomí es un recinto cultural y sagrado de 45 a 50 hectáreas ubicado en el municipio de Temoaya, Estado de México, a unos 37 km de Toluca y aproximadamente a una hora y media de la Ciudad de México. Fue inaugurado en 1980 por iniciativa del gobierno estatal (durante la gestión de Jorge Jiménez Cantú) y diseñado por los arquitectos Iker Larrauri y Carlos Obregón con el propósito de preservar las tradiciones, rituales e identidad de la comunidad otomí (ñöhñö).</p>
+            <img src="img/1.jpg">
+            <img src="img/2.jpg">
+        </section>
+
+        <section id="comida">
+            <h2>Comida tradicional</h2>
+            <h3>Nopales en penca</h3>
+            <p>Rellenos de cebolla, ajo, cilantro, jitomate y chile, cocinados lentamente dentro de una penca de nopal.</p>
+            <img src="img/3.jpg">
+            <h3>Mole de flor de quiote y mole de conejo</h3>
+            <p>Guisados tradicionales de herencia prehispánica.</p>
+            <img src="img/4.jpg">
+            <h3>Tamales agrios</h3>
+            <p>Elaborados con masa de maíz azul de fermentación lenta, anís y haba seca, muy tradicionales para el Día de Muertos.</p>
+            <img src="img/5.jpg">
+        </section>
+
+        <section id="tradiciones">
+            <h2>Tradiciones</h2>
+            <h3>El Padrón de Ceras y Mayordomías</h3>
+            <p>Organización comunitaria y religiosa para festejar al santo patrono, donde se traspasan cargos de responsabilidad social y espiritual.</p>
+            <img src="img/6.jpg">
+            <h3>Danza de los viejitos</h3>
+            <p>Los jóvenes se visten como ancianos con máscaras de madera y bailan con violín y tambor. Lo hacen para mostrar respeto a las personas mayores y todo lo que saben.</p>
+            <img src="img/67.jpg">
+            <h3>Artesanías</h3>
+            <p>Desde pequeños aprenden a tejer, bordar y hacer cerámica. Las figuras que hacen cuentan cosas de su pueblo, como el sol, la luna o la lluvia. Cada pieza tiene su significado.</p>
+            <img src="img/8.jpg">
+        </section>
+    </main>
+</body>
+</html>

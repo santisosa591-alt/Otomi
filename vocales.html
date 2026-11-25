@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocales</title>
+    <link rel="stylesheet" href="sp.css">
+</head>
+<body>
+
+
+<header class="topbar">
+    <a href="menu.html" class="cerrar" title="Salir"></a>
+    <div class="progreso-barra"><div class="progreso-relleno" id="progresoRelleno"></div></div>
+    <span class="progreso-texto" id="progresoTexto">0%</span>
+    <a href="perfil.html" class="enlace-perfil" title="Mi perfil"></a>
+    <span id="vidas"> 5</span>
+</header>
+
+
+<div id="gameover">
+    <div class="gameover-caja">
+        <h1> Te quedaste sin vidas</h1>
+        <p>No te rindas, intentalo otra vez!</p>
+        <button class="comprobar" onclick="location.reload()">INTENTAR DE NUEVO</button>
+    </div>
+</div>
+
+
+<!-- LECCION 1 -->
+<section id="leccion1" class="activa">
+    <h3>Las vocales</h3>
+    <h1>Cual de estas letras es una VOCAL?</h1>
+    <div class="container">
+        <div class="card"><nav class="letra-grande">M</nav></div>
+        <div class="card" data-correcta="true"><nav class="letra-grande">O</nav></div>
+        <div class="card"><nav class="letra-grande">T</nav></div>
+    </div>
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="siguiente()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+
+<!-- LECCION 2 -->
+<section id="leccion2">
+    <h3>Las vocales</h3>
+    <h1>Con que vocal empieza AGUA (Dehe)? </h1>
+    <div class="container">
+        <div class="card" data-correcta="true"><nav class="letra-grande">A</nav></div>
+        <div class="card"><nav class="letra-grande">E</nav></div>
+        <div class="card"><nav class="letra-grande">U</nav></div>
+    </div>
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="siguiente()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+
+<!-- LECCION 3 -->
+<section id="leccion3">
+    <h3>Las vocales</h3>
+    <h1>Con que vocal empieza ESTRELLA (Se)? </h1>
+    <div class="container">
+        <div class="card"><nav class="letra-grande">I</nav></div>
+        <div class="card"><nav class="letra-grande">O</nav></div>
+        <div class="card" data-correcta="true"><nav class="letra-grande">E</nav></div>
+    </div>
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="siguiente()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+
+<!-- LECCION 4 -->
+<section id="leccion4">
+    <h3>Las vocales</h3>
+    <h1>Cual de estas palabras empieza con la vocal U?</h1>
+    <div class="container">
+        <div class="card"><nav class="emoji"></nav><h3>Isla &nbsp;Hai</h3></div>
+        <div class="card"><nav class="emoji"></nav><h3>Oreja &nbsp;Ngu</h3></div>
+        <div class="card" data-correcta="true"><nav class="emoji"></nav><h3>Una &nbsp;Y'ofri</h3></div>
+    </div>
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="siguiente()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+
+<!-- LECCION 5 -->
+<section id="leccion5" data-respuesta="i">
+    <h3>Escribe la vocal</h3>
+    <h1>Con que vocal empieza ISLA (Hai)? </h1>
+    <input type="text" class="entrada" placeholder="Escribe aqui..." autocomplete="off" maxlength="1">
+    <div class="botones">
+        <button class="comprobar" onclick="comprobar()">COMPROBAR</button>
+        <button class="saltar" onclick="siguiente()">SALTAR</button>
+    </div>
+    <p class="resultado"></p>
+</section>
+
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const norm = t => t.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const TOTAL = document.querySelectorAll("section").length;
+let actual = 1, puntaje = 0, vidas = 5, comprobado = false;
+
+
+const sec = () => $("#leccion" + actual);
+
+
+function actualizarVidas(animar) {
+    const el = $("#vidas");
+    el.textContent = vidas > 0 ? " " + vidas : " 0";
+    if (animar) { el.classList.remove("perdida"); void el.offsetWidth; el.classList.add("perdida"); }
+}
+
+
+function mensaje(titulo, detalle) {
+    const r = $(".resultado", sec());
+    r.textContent = titulo;
+    if (detalle) r.insertAdjacentHTML("beforeend", `<small>${detalle}</small>`);
+}
+
+
+// Seleccionar tarjeta
+document.addEventListener("click", e => {
+    const card = e.target.closest(".card");
+    if (!card || comprobado) return;
+    card.closest("section").querySelectorAll(".card").forEach(c => c.classList.remove("seleccionada"));
+    card.classList.add("seleccionada");
+});
+
+
+// Enter = comprobar
+document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.matches(".entrada")) comprobar();
+});
+
+
+function comprobar() {
+    if (comprobado) return siguiente();
+
+    const s = sec();
+    let acerto, correcto = "";
+
+    if (s.dataset.respuesta) {
+        const valor = $("input", s).value;
+        if (!valor.trim()) return mensaje("Escribe una respuesta primero.");
+        acerto = norm(valor) === norm(s.dataset.respuesta);
+        correcto = s.dataset.respuesta.toUpperCase();
+    } else {
+        const elegida = $(".card.seleccionada", s);
+        if (!elegida) return mensaje("Elige una opcion primero.");
+        acerto = elegida.dataset.correcta === "true";
+        elegida.classList.replace("seleccionada", acerto ? "correcta" : "incorrecta");
+        if (!acerto) {
+            const buena = document.querySelector('.card[data-correcta="true"]', s);
+            buena.classList.add("correcta");
+            correcto = document.querySelector("h3, .letra-grande", buena).textContent.trim();
+        }
+    }
+
+    comprobado = true;
+
+    if (acerto) {
+        puntaje += 10;
+        s.classList.add("ok");
+        mensaje("¡Excelente!");
+    } else {
+        vidas--;
+        actualizarVidas(true);
+        s.classList.add("mal");
+        mensaje("Incorrecto", "Respuesta correcta: " + correcto);
+        if (vidas <= 0) return $("#gameover").classList.add("visible");
+    }
+    document.querySelector(".comprobar", s).textContent = "CONTINUAR";
+}
+
+
+function siguiente() {
+    comprobado = false;
+    sec().classList.remove("activa");
+    const pct = Math.round(actual / TOTAL * 100);
+    $("#progresoRelleno").style.width = pct + "%";
+    $("#progresoTexto").textContent = pct + "%";
+
+    if (actual >= TOTAL) return final();
+    actual++;
+    sec().classList.add("activa");
+    scrollTo(0, 0);
+}
+
+
+function final() {
+    if (puntaje <= 0) {
+        alert("Terminaste la lección, pero no ganaste puntos. Inténtalo otra vez.");
+        return location.href = "menu.html";
+    }
+    fetch("actualizar_progreso.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ experienciaGanada: puntaje })
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.success) {
+            alert(`🎉 ¡Felicidades!\n\nGanaste ${puntaje} puntos.\nTu progreso ha sido actualizado.`);
+            location.href = "menu.html";
+        } else {
+            alert("Error: " + d.mensaje);
+            if (norm(d.mensaje || "").includes("iniciar sesion")) location.href = "login.html";
+        }
+    })
+    .catch(() => alert(`Terminaste la lección con ${puntaje} puntos, pero hubo un error de conexión con el servidor.`));
+}
+
+
+actualizarVidas();
+</script>
+
+</body>
+</html>

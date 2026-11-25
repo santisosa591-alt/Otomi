@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ahorcado Otomí</title>
+ <link rel="stylesheet" href="cholo.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>🌿 El Ahorcado Otomí 🌿</h1>
+        
+        <div id="vidas">
+            Vidas: <span id="corazon">❤️ ❤️</span>
+        </div>
+
+        <div id="dibujo">
+<pre id="figura">
+  +---+
+      |
+      |
+      |
+     ===
+</pre>
+        </div>
+
+        <div id="pista">Pista: <span id="texto-pista"></span></div>
+        <div id="palabra"></div>
+        <div id="teclado"></div>
+        <div id="mensaje"></div>
+        <button id="reiniciar" onclick="iniciarJuego()">🔄 Nueva Partida</button>
+    </div>
+
+    <script>
+        const palabrasOtomies = [
+            { palabra: "XIMI", pista: "Sol" },
+            { palabra: "DEHE", pista: "Agua" },
+            { palabra: "DÄTI", pista: "Tierra" },
+            { palabra: "TS'O", pista: "Casa" },
+            { palabra: "ÑU", pista: "Dos" },
+            { palabra: "RÄ", pista: "Uno" },
+            { palabra: "HME", pista: "Flor" },
+            { palabra: "TSÄ", pista: "Árbol" },
+            { palabra: "K'A", pista: "Fuego" },
+            { palabra: "MÄ", pista: "Grande" }
+        ];
+
+        const dibujos = [
+`  +---+
+      |
+      |
+      |
+     ===`,
+`  +---+
+  O   |
+      |
+      |
+     ===`,
+`  +---+
+  O   |
+ /|\\  |
+ / \\  |
+     ===`
+        ];
+
+        let palabraSecreta = "";
+        let pistaSecreta = "";
+        let letrasAdivinadas = [];
+        let letrasFallidas = [];
+        let vidas = 2;
+        let juegoTerminado = false;
+
+        function iniciarJuego() {
+            const indice = Math.floor(Math.random() * palabrasOtomies.length);
+            palabraSecreta = palabrasOtomies[indice].palabra;
+            pistaSecreta = palabrasOtomies[indice].pista;
+            
+            letrasAdivinadas = [];
+            letrasFallidas = [];
+            vidas = 2;
+            juegoTerminado = false;
+            
+            document.getElementById("texto-pista").textContent = pistaSecreta;
+            document.getElementById("corazon").innerHTML = "❤️ ❤️";
+            document.getElementById("mensaje").innerHTML = "";
+            document.getElementById("mensaje").className = "";
+            actualizarPalabra();
+            actualizarDibujo();
+            crearTeclado();
+        }
+
+        function actualizarPalabra() {
+            const mostrar = palabraSecreta
+                .split("")
+                .map(letra => letrasAdivinadas.includes(letra) ? letra : "_")
+                .join(" ");
+            document.getElementById("palabra").textContent = mostrar;
+            
+            if (!mostrar.includes("_") && !juegoTerminado) {
+                juegoGanado();
+            }
+        }
+
+        function actualizarDibujo() {
+            const indice = 2 - vidas;
+            document.getElementById("figura").textContent = dibujos[indice];
+        }
+
+        function crearTeclado() {
+            const teclado = document.getElementById("teclado");
+            teclado.innerHTML = "";
+            const letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            
+            for (let letra of letras) {
+                const boton = document.createElement("button");
+                boton.textContent = letra;
+                boton.className = "tecla";
+                boton.onclick = () => elegirLetra(letra);
+                teclado.appendChild(boton);
+            }
+        }
+
+        function elegirLetra(letra) {
+            if (juegoTerminado) return;
+            
+            const botones = document.querySelectorAll(".tecla");
+            
+            if (palabraSecreta.includes(letra)) {
+                letrasAdivinadas.push(letra);
+                actualizarPalabra();
+                botones.forEach(b => {
+                    if (b.textContent === letra) {
+                        b.disabled = true;
+                        b.classList.add("acertada");
+                    }
+                });
+            } else {
+                if (!letrasFallidas.includes(letra)) {
+                    letrasFallidas.push(letra);
+                    vidas--;
+                    actualizarVidas();
+                    actualizarDibujo();
+                    botones.forEach(b => {
+                        if (b.textContent === letra) {
+                            b.disabled = true;
+                            b.classList.add("fallida");
+                        }
+                    });
+                    
+                    if (vidas === 0) {
+                        juegoPerdido();
+                    }
+                }
+            }
+        }
+
+        function actualizarVidas() {
+            const corazones = "❤️ ".repeat(vidas);
+            document.getElementById("corazon").innerHTML = corazones || "💔";
+        }
+
+        function juegoGanado() {
+            juegoTerminado = true;
+            document.getElementById("mensaje").textContent = "🎉 ¡GANASTE! ¡Felicidades! 🎉";
+            document.getElementById("mensaje").classList.add("ganaste");
+        }
+
+        function juegoPerdido() {
+            juegoTerminado = true;
+            document.getElementById("mensaje").innerHTML = `😢 ¡Perdiste! La palabra era: <strong>${palabraSecreta}</strong>`;
+            document.getElementById("mensaje").classList.add("perdiste");
+        }
+
+        // Iniciar al cargar la página
+        window.onload = iniciarJuego;
+    </script>
+</body>
+</html>

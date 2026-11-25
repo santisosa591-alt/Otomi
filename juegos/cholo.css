@@ -1,0 +1,100 @@
+* {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f4e4c1 0%, #d4b896 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .contenedor {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #5d4037;
+            margin-top: 0;
+        }
+        #vidas {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #c0392b;
+        }
+        #dibujo {
+            font-family: monospace;
+            font-size: 18px;
+            margin: 20px 0;
+            color: #2c3e50;
+            text-align: center;
+            line-height: 1.2;
+        }
+        #pista {
+            font-size: 18px;
+            color: #34495e;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        #palabra {
+            font-size: 32px;
+            letter-spacing: 10px;
+            margin: 25px 0;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        #teclado {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 25px 0;
+        }
+        .tecla {
+            padding: 10px 15px;
+            font-size: 18px;
+            background: #6b8e23;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .tecla:hover {
+            background: #556b2f;
+        }
+        .tecla:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        .tecla.acertada {
+            background: #27ae60;
+        }
+        .tecla.fallida {
+            background: #e74c3c;
+        }
+        #mensaje {
+            font-size: 22px;
+            margin: 20px 0;
+            font-weight: bold;
+            min-height: 30px;
+        }
+        .ganaste { color: #27ae60; }
+        .perdiste { color: #e74c3c; }
+        #reiniciar {
+            padding: 12px 25px;
+            font-size: 18px;
+            background: #8b4513;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #reiniciar:hover {
+            background: #6b3410;
+        }

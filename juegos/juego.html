@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorama - Cultura Otomí</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5e6d3 0%, #e2ccb4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #5d4037;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .info {
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .info p {
+            color: #6d4c41;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .contenedor-juego {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 12px;
+        }
+
+        .tarjeta {
+            width: 100px;
+            height: 100px;
+            background: #8d6e63;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .tarjeta:hover {
+            background: #6d4c41;
+            transform: scale(1.05);
+        }
+
+        .tarjeta.volteada {
+            background: #fff;
+            color: #5d4037;
+            border: 3px solid #8d6e63;
+        }
+
+        .tarjeta.acertada {
+            background: #a5d6a7;
+            border: 3px solid #4caf50;
+            cursor: default;
+        }
+
+        .mensaje-final {
+            margin-top: 30px;
+            padding: 20px 30px;
+            background: #c8e6c9;
+            border-radius: 12px;
+            color: #2e7d32;
+            font-size: 22px;
+            display: none;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #6d4c41;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5d4037;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌿 Memorama: Cultura Otomí</h1>
+
+    <div class="info">
+        <p>Intentos: <span id="contador">0</span></p>
+        <p>Encuentra los pares relacionados con la cultura otomí</p>
+    </div>
+
+    <div class="contenedor-juego" id="tablero"></div>
+
+    <div class="mensaje-final" id="mensajeFinal">
+        ¡🎉 Felicidades! Completaste el memorama de la cultura Otomí
+        <br>
+        <button onclick="reiniciarJuego()">Jugar de nuevo</button>
+    </div>
+
+<script>
+// Datos con pares relacionados a la cultura Otomí
+const pares = [
+    { id: 1, contenido: "🌽", nombre: "Maíz" },
+    { id: 2, contenido: "🏔️", nombre: "Cerro" },
+    { id: 3, contenido: "🧶", nombre: "Textiles" },
+    { id: 4, contenido: "🦅", nombre: "Águila" },
+    { id: 5, contenido: "💧", nombre: "Agua" },
+    { id: 6, contenido: "🌞", nombre: "Sol" },
+    { id: 7, contenido: "🏺", nombre: "Cerámica" },
+    { id: 8, contenido: "🦋", nombre: "Mariposa" }
+];
+
+// Duplicamos para tener pares
+let tarjetas = [...pares, ...pares];
+
+let tarjetaVolteada = null;
+let bloqueado = false;
+let contadorIntentos = 0;
+let paresEncontrados = 0;
+
+// Mezclar tarjetas
+function mezclar(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+// Crear tablero
+function crearTablero() {
+    const tablero = document.getElementById('tablero');
+    tablero.innerHTML = '';
+    tarjetas = mezclar(tarjetas);
+    
+    tarjetas.forEach((tarjeta, indice) => {
+        const elemento = document.createElement('div');
+        elemento.classList.add('tarjeta');
+        elemento.dataset.indice = indice;
+        elemento.dataset.id = tarjeta.id;
+        elemento.innerHTML = "?";
+        elemento.title = tarjeta.nombre;
+        
+        elemento.addEventListener('click', () => voltearTarjeta(elemento, tarjeta, indice));
+        tablero.appendChild(elemento);
+    });
+}
+
+// Voltear tarjeta
+function voltearTarjeta(elemento, tarjeta, indice) {
+    if (bloqueado || elemento.classList.contains('volteada') || elemento.classList.contains('acertada')) {
+        return;
+    }
+
+    elemento.innerHTML = tarjeta.contenido;
+    elemento.classList.add('volteada');
+
+    if (!tarjetaVolteada) {
+        tarjetaVolteada = { elemento, tarjeta, indice };
+    } else {
+        contadorIntentos++;
+        document.getElementById('contador').textContent = contadorIntentos;
+        bloqueado = true;
+
+        if (tarjetaVolteada.tarjeta.id === tarjeta.id) {
+            // ¡Par encontrado!
+            elemento.classList.add('acertada');
+            tarjetaVolteada.elemento.classList.add('acertada');
+            
+            paresEncontrados++;
+            tarjetaVolteada = null;
+            bloqueado = false;
+
+            // ¿Ganó?
+            if (paresEncontrados === pares.length) {
+                setTimeout(() => {
+                    document.getElementById('mensajeFinal').style.display = 'block';
+                }, 500);
+            }
+        } else {
+            // No coincide
+            setTimeout(() => {
+                elemento.innerHTML = "?";
+                elemento.classList.remove('volteada');
+                tarjetaVolteada.elemento.innerHTML = "?";
+                tarjetaVolteada.elemento.classList.remove('volteada');
+                tarjetaVolteada = null;
+                bloqueado = false;
+            }, 1000);
+        }
+    }
+}
+
+// Reiniciar juego
+function reiniciarJuego() {
+    tarjetaVolteada = null;
+    bloqueado = false;
+    contadorIntentos = 0;
+    paresEncontrados = 0;
+    document.getElementById('contador').textContent = "0";
+    document.getElementById('mensajeFinal').style.display = 'none';
+    crearTablero();
+}
+
+// Iniciar juego al cargar
+crearTablero();
+</script>
+
+</body>
+</html>

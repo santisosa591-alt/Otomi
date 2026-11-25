@@ -1,0 +1,138 @@
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Menú lateral */
+.sidebar {
+  width: 240px;
+  background-color: #1e4d2b; /* Verde oscuro - color principal */
+  color: #ffffff;
+  padding: 2rem 1.25rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffd700; /* Dorado */
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #3a7d44;
+  padding-bottom: 1.25rem;
+}
+
+.logo span {
+  display: block;
+  font-size: 0.85rem;
+  color: #90ee90; /* Verde claro */
+  margin-top: 0.4rem;
+}
+
+.menu-links {
+  list-style: none;
+}
+
+.menu-links li {
+  margin: 0.5rem 0;
+}
+
+.menu-links li.divider {
+  height: 1px;
+  background-color: #3a7d44;
+  margin: 1.25rem 0;
+}
+
+.menu-links a {
+  color: #f0fff0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+.menu-links a:hover {
+  background-color: #3a7d44;
+  color: #ffd700;
+}
+
+.menu-links a.active {
+  background-color: #ffd700;
+  color: #1e4d2b;
+  font-weight: bold;
+}
+
+.menu-links a.logout {
+  color: #ffb3b3;
+  margin-top: 1rem;
+}
+
+.menu-links a.logout:hover {
+  background-color: #8b0000;
+  color: #ffffff;
+}
+
+.icon {
+  font-size: 1.15rem;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f8f4e9; /* Fondo crema */
+}
+
+/* Navegación secundaria */
+.sub-nav {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #1e4d2b;
+}
+
+.sub-nav a {
+  display: inline-block;
+  margin-right: 1.5rem;
+  color: #1e4d2b;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 0;
+}
+
+.sub-nav a:hover {
+  color: #ff8c00;
+}
+
+/* Títulos con colores específicos */
+h2 {
+  color: #8b4513; /* Marrón */
+  font-size: 1.6rem;
+  margin: 2rem 0 1rem 0;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid #deb887;
+}
+
+h3 {
+  color: #2f6b2f; /* Verde medio */
+  font-size: 1.2rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+section {
+  margin-bottom: 1.5rem;
+}

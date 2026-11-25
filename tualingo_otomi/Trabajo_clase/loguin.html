@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+    /* Estilos generales del cuerpo y fondo */
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  padding: 20px;
+}
+
+/* Contenedor del formulario */
+form {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Espaciado entre elementos */
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Estilos de los campos de entrada */
+.form-outline {
+  position: relative;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+  background: transparent;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Etiquetas */
+.form-label {
+  position: absolute;
+  left: 1rem;
+  top: 0.85rem;
+  color: #94a3b8;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  background: white;
+  padding: 0 0.3rem;
+}
+
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+  top: -0.6rem;
+  left: 0.8rem;
+  font-size: 0.8rem;
+  color: #667eea;
+}
+
+/* Fila y columnas */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.col {
+  flex: 1;
+}
+
+/* Checkbox */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.form-check-input {
+  accent-color: #667eea;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.form-check-label {
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+/* Enlace */
+a {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Botón */
+.btn {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Iconos de redes sociales */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.social-icons a {
+  font-size: 1.8rem;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+.fa-facebook {
+  color: #1877f2;
+}
+
+.fa-instagram {
+  color: #e1306c;
+}
+    </style>
+</head>
+<body>
+       <form id="loginForm" action="leccion1.html" method="POST">
+
+
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                        <p class="lead fw-normal mb-0 me-3">Iniciar sesión con</p>
+
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+
+
+                        <button type="button" class="btn btn-primary btn-floating mx-1">
+                            <i class="fab fa-linkedin-in"></i>
+                        </button>
+                    </div>
+
+
+                    <div class="divider d-flex align-items-center my-4">
+                        <p class="text-center fw-bold mx-3 mb-0">O</p>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-outline mb-4">
+                        <input
+                            type="email"
+                            name="email"
+                            id="form3Example3"
+                            class="form-control form-control-lg"
+                            placeholder="Ingresa un email válido"
+                            required>
+
+
+                        <label class="form-label" for="form3Example3">
+                            Email
+                        </label>
+                    </div>
+
+
+                   <!-- Contraseña -->
+<div class="form-outline mb-3">
+<input
+type="password"
+name="contraseña"
+id="form3Example4"
+class="form-control form-control-lg"
+placeholder="Ingresa tu contraseña"
+required>
+
+
+<label class="form-label" for="form3Example4">
+Contraseña
+</label>
+</div>
+
+
+<div class="d-flex justify-content-between align-items-center">
+
+
+<div class="form-check mb-0">
+<input class="form-check-input me-2"
+type="checkbox"
+id="form2Example3">
+
+
+<label class="form-check-label" for="form2Example3">
+Recuérdame
+</label>
+</div>
+
+
+<a href="#" class="text-body">
+¿Olvidó su contraseña?
+</a>
+</div>
+
+
+<div class="text-center text-lg-start mt-4 pt-2">
+
+
+<!-- IMPORTANTE: submit -->
+<button
+type="submit"
+class="btn btn-primary btn-lg"
+style="padding-left: 2.5rem; padding-right: 2.5rem;">
+Login
+</button>
+
+
+<p class="small fw-bold mt-2 pt-1 mb-0">
+¿No tiene cuenta?
+<a href="leccion1.html" class="link-danger">
+Registro
+</a>
+</p>
+
+
+</div>
+
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

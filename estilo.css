@@ -1,0 +1,84 @@
+body {
+  background-color: #f5efe6;
+  margin: 0;
+  padding: 30px;
+  font-family: sans-serif;
+}
+h1, h3 {
+  text-align: center;
+  color: #5a3e36;
+}
+.contenedor {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.card {
+  border: 5px solid #d8c3a5;
+  padding: 25px;
+  text-align: center;
+  width: 150px;
+  border-radius: 12px;
+  background-color: #c9a66b;
+  box-shadow: 3px 3px 8px rgba(90, 62, 54, 0.15);
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.card img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+.card button {
+  background-color: #5a3e36;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.card button:hover {
+  background-color: #8b6f47;
+}
+
+/* === ESTILO DE LOS BOTONES DE ACCIÓN === */
+.acciones {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.acciones button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.comprobar {
+  background-color: #5a3e36;
+  color: #fff;
+}
+.comprobar:hover {
+  background-color: #8b6f47;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(90, 62, 54, 0.2);
+}
+.saltar {
+  background-color: #d8c3a5;
+  color: #5a3e36;
+}
+.saltar:hover {
+  background-color: #c9a66b;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(90, 62, 54, 0.2);
+}

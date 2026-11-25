@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión</title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#e9adad;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        margin:0;
+    }
+    .formulario{
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        width:400px;
+        box-shadow:0 0 10px rgba(0,0,0,.2);
+    }
+    .formulario h2{ text-align:center; }
+    input{
+        width:100%;
+        padding:10px;
+        margin:8px 0;
+        border:1px solid #ccc;
+        border-radius:5px;
+        box-sizing:border-box;
+    }
+    button{
+        width:100%;
+        padding:10px;
+        background:#28a745;
+        color:white;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+    }
+    button:hover{ background:#218838; }
+    #mensaje{ margin-top:10px; text-align:center; }
+    .registro{ text-align:center; margin-top:15px; }
+</style>
+</head>
+<body>
+
+<div class="formulario">
+    <h2>Iniciar sesión</h2>
+
+    <form id="formLogin">
+        <input type="email" name="email" placeholder="correo electronico" required>
+        <input type="password" name="contrasena" placeholder="contraseña" required>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <p class="registro">¿No tienes cuenta? <a href="index.html">Regístrate</a></p>
+</div>
+
+<script>
+document.getElementById("formLogin").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    try{
+        const respuesta = await fetch("login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: this.email.value,
+                contrasena: this.contrasena.value
+            })
+        });
+
+        const resultado = await respuesta.json();
+        document.getElementById("mensaje").textContent = resultado.mensaje;
+
+        if(resultado.estado){
+            setTimeout(() => { window.location.href = resultado.redirect || "menu.html"; }, 800);
+        }
+    }catch(error){
+        console.error(error);
+        document.getElementById("mensaje").textContent = "Error de conexión con el servidor";
+    }
+});
+</script>
+
+</body>
+</html>

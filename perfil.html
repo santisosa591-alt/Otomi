@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="ronaldo.css">
+</head>
+<body>
+
+    <!-- === TU MENÚ LATERAL === -->
+    <nav class="menu-lateral">
+        <a href="menu.html" class="logo">Otomi</a>
+        <ul class="menu-links">
+            <li><a href="menu.html"><span class="icon"></span> Aprender</a></li>
+            <li><a href="vocales.html"><span class="icon"></span> Vocales</a></li>
+            <li><a href="consonantes.html"><span class="icon"></span> Consonantes</a></li>
+            <li><a href="perfil.html" class="active"><span class="icon"></span> Perfil</a></li>
+            <li><a href="juegos.html"><span class="icon"></span> Juegos</a></li>
+        </ul>
+    </nav>
+
+    <!-- === CONTENIDO DEL PERFIL === -->
+    <main class="contenido">
+        <div class="barra-superior">
+            <a href="menu.html" class="volver">← Volver</a>
+            <button id="btn-salir" class="btn-salir">Cerrar sesión</button>
+        </div>
+
+        <div class="contenedor-perfil">
+            <!-- Tarjeta Principal -->
+            <div class="tarjeta tarjeta-perfil">
+                <div class="cabecera-perfil">
+                    <div class="avatar-grande" id="avatar">?</div>
+                </div>
+
+                <div class="info-usuario">
+                    <h1 id="nombre-usuario">Usuario Ejemplo</h1>
+                    <p class="correo" id="correo-usuario">correo@ejemplo.com</p>
+                    <p class="fecha-ingreso">Se unió el <span id="fecha-ingreso">01/11/2026</span></p>
+                </div>
+
+                <div class="fila-datos">
+                    <div class="dato">
+                        <span>País</span>
+                        <span id="pais-usuario">🇲🇽 México</span>
+                    </div>
+                    <div class="dato">
+                        <span>Nivel</span>
+                        <span id="nivel-usuario">Principiante</span>
+                    </div>
+                    <div class="dato">
+                        <span>Fecha de nacimiento</span>
+                        <span id="fecha-nac">01/01/2000</span>
+                    </div>
+                    <div class="dato">
+                        <span>ID Usuario</span>
+                        <span>#12345</span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h2>Estadísticas</h2>
+                <div class="estadisticas">
+                    <div class="stat">
+                        <span>🔥</span>
+                        <div>
+                            <div class="numero" id="racha">7</div>
+                            <div class="texto">días de racha</div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <span>⚡</span>
+                        <div>
+                            <div class="numero" id="exp">150</div>
+                            <div class="texto">puntos EXP</div>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <span>📈</span>
+                        <div>
+                            <div class="numero" id="progreso">35%</div>
+                            <div class="texto">completado</div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h2>Logros</h2>
+                <div class="logros">
+                    <div class="logro completado">
+                        <span>🌟</span>
+                        <div>
+                            <b>Primera lección</b>
+                            <p>¡Completaste tu primera lección!</p>
+                        </div>
+                    </div>
+                    <div class="logro">
+                        <span>🏆</span>
+                        <div>
+                            <b>Semana de estudio</b>
+                            <p>7 días seguidos estudiando</p>
+                        </div>
+                    </div>
+                    <div class="logro">
+                        <span>🎯</span>
+                        <div>
+                            <b>500 puntos</b>
+                            <p>Alcanza 500 puntos de experiencia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de Progreso -->
+            <div class="tarjeta tarjeta-progreso">
+                <h2>Tu progreso</h2>
+                <div class="barra-fondo">
+                    <div class="barra-progreso" id="barra-progreso" style="width: 35%"></div>
+                </div>
+                <p class="texto-progreso">35% del curso completado</p>
+                <a href="menu.html" class="btn-continuar">Continuar aprendiendo →</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

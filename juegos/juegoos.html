@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta con el Otomí 🌿</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .contenedor {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        .puntuacion {
+            font-size: 20px;
+            color: #424242;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .palabra-otomi {
+            font-size: 36px;
+            color: #1b5e20;
+            font-weight: bold;
+            padding: 25px;
+            background: #e8f5e9;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 3px solid #66bb6a;
+        }
+        .instruccion {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .opcion {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            background: #ffffff;
+            color: #333;
+            border: 2px solid #81c784;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .opcion:hover {
+            background: #c8e6c9;
+            border-color: #66bb6a;
+        }
+        .opcion.correcta {
+            background: #a5d6a7;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        .opcion.incorrecta {
+            background: #ef9a9a;
+            border-color: #e57373;
+            color: #c62828;
+        }
+        .mensaje {
+            font-size: 22px;
+            margin: 20px 0;
+            font-weight: bold;
+            min-height: 35px;
+        }
+        .correcto { color: #2e7d32; }
+        .incorrecto { color: #c62828; }
+        #siguiente {
+            padding: 12px 30px;
+            font-size: 18px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none;
+        }
+        #siguiente:hover {
+            background: #1b5e20;
+        }
+        .progreso {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>🌿 Conecta con el Otomí 🌿</h1>
+        <div class="puntuacion">Puntos: <span id="puntos">0</span></div>
+        <div class="palabra-otomi" id="palabraOtomi"></div>
+        <p class="instruccion">¿Qué significa esta palabra?</p>
+        <div id="opciones"></div>
+        <div class="mensaje" id="mensaje"></div>
+        <button id="siguiente" onclick="siguientePalabra()">➡️ Siguiente Palabra</button>
+        <div class="progreso" id="progreso"></div>
+    </div>
+
+    <script>
+        const palabras = [
+            { otomi: "XIMI", espanol: "Sol", otras: ["Luna", "Estrella"] },
+            { otomi: "DEHE", espanol: "Agua", otras: ["Fuego", "Tierra"] },
+            { otomi: "DÄTI", espanol: "Tierra", otras: ["Aire", "Fuego"] },
+            { otomi: "TS'O", espanol: "Casa", otras: ["Árbol", "Flor"] },
+            { otomi: "ÑU", espanol: "Dos", otras: ["Tres", "Cinco"] },
+            { otomi: "RÄ", espanol: "Uno", otras: ["Diez", "Cien"] },
+            { otomi: "HME", espanol: "Flor", otras: ["Fruto", "Hoja"] },
+            { otomi: "TSÄ", espanol: "Árbol", otras: ["Pasto", "Planta"] },
+            { otomi: "K'A", espanol: "Fuego", otras: ["Hielo", "Viento"] },
+            { otomi: "MÄ", espanol: "Grande", otras: ["Pequeño", "Mediano"] },
+            { otomi: "ZÄ", espanol: "Bueno", otras: ["Malo", "Feo"] },
+            { otomi: "TSI", espanol: "Pequeño", otras: ["Alto", "Largo"] }
+        ];
+        let indiceActual = 0, puntos = 0, respondiendo = false;
+        function mezclar(a) { return a.sort(() => Math.random() - 0.5); }
+        
+        function mostrarPalabra() {
+            respondiendo = false;
+            const p = palabras[indiceActual];
+            document.getElementById("palabraOtomi").textContent = p.otomi;
+            document.getElementById("mensaje").textContent = "";
+            document.getElementById("siguiente").style.display = "none";
+            let ops = mezclar([p.espanol, ...p.otras]);
+            const c = document.getElementById("opciones");
+            c.innerHTML = "";
+            ops.forEach(o => {
+                const b = document.createElement("button");
+                b.className = "opcion";
+                b.textContent = o;
+                b.onclick = () => verificar(o, p.espanol, b);
+                c.appendChild(b);
+            });
+            actualizarProgreso();
+        }
+        function verificar(e, c, b) {
+            if (respondiendo) return;
+            respondiendo = true;
+            const todos = document.querySelectorAll(".opcion");
+            todos.forEach(x => x.disabled = true);
+            if (e === c) {
+                b.classList.add("correcta");
+                document.getElementById("mensaje").textContent = "✅ ¡Correcto!";
+                document.getElementById("mensaje").className = "mensaje correcto";
+                puntos++;
+                document.getElementById("puntos").textContent = puntos;
+            } else {
+                b.classList.add("incorrecta");
+                document.getElementById("mensaje").textContent = "❌ Incorrecto. Era: " + c;
+                document.getElementById("mensaje").className = "mensaje incorrecto";
+                todos.forEach(x => { if (x.textContent === c) x.classList.add("correcta"); });
+            }
+            document.getElementById("siguiente").style.display = "inline-block";
+        }
+        function siguientePalabra() {
+            indiceActual++;
+            if (indiceActual >= palabras.length) {
+                document.getElementById("palabraOtomi").textContent = "🏆 ¡Terminaste!";
+                document.getElementById("opciones").innerHTML = "";
+                document.getElementById("mensaje").innerHTML = "Obtuviste <strong>" + puntos + "</strong> de <strong>" + palabras.length + "</strong> puntos";
+                document.getElementById("mensaje").className = "mensaje correcto";
+                document.getElementById("siguiente").textContent = "🔄 Jugar de nuevo";
+                document.getElementById("siguiente").style.display = "inline-block";
+                document.getElementById("siguiente").onclick = reiniciar;
+                document.querySelector(".instruccion").textContent = "";
+                document.querySelector(".progreso").textContent = "";
+            } else mostrarPalabra();
+        }
+        function actualizarProgreso() {
+            document.getElementById("progreso").textContent = "Palabra " + (indiceActual + 1) + " de " + palabras.length;
+        }
+        function reiniciar() {
+            indiceActual = 0;
+            puntos = 0;
+            document.getElementById("puntos").textContent = "0";
+            document.getElementById("siguiente").textContent = "➡️ Siguiente Palabra";
+            document.getElementById("siguiente").onclick = siguientePalabra;
+            document.querySelector(".instruccion").textContent = "¿Qué significa esta palabra?";
+            palabras.sort(() => Math.random() - 0.5);
+            mostrarPalabra();
+        }
+        window.onload = mostrarPalabra;
+    </script>
+</body>
+</html>

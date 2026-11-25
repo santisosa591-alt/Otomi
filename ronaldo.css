@@ -1,0 +1,238 @@
+/* === Colores === */
+:root {
+    --azul: #4D52B4;
+    --celeste: #4E9CE8;
+    --verde: #70D6C5;
+    --verde-claro: #CAE5BC;
+    --fondo-tarjeta: #E1EDD4;
+    --texto: #181616;
+    --gris: #6b7280;
+    --menu-fondo: #0F4C5C;
+    --naranja: #F97316;
+}
+
+/* === General === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: linear-gradient(160deg, var(--azul), var(--celeste) 40%, var(--verde) 75%, var(--verde-claro)) fixed;
+    min-height: 100vh;
+    color: var(--texto);
+}
+
+h1, h2 { color: var(--azul); }
+h1 { font-size: 1.7rem; }
+h2 { font-size: 1.2rem; margin-bottom: 12px; }
+a { text-decoration: none; }
+hr {
+    border: none;
+    border-top: 2px solid rgba(77, 82, 180, 0.2);
+    margin: 20px 0;
+}
+
+/* === Menú Lateral === */
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    background: var(--menu-fondo);
+    border-right: 5px solid var(--naranja);
+    padding: 20px 10px;
+}
+
+.menu-lateral .logo {
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FDBA74;
+    margin-bottom: 25px;
+}
+
+.menu-lateral ul { list-style: none; }
+.menu-lateral li { margin-bottom: 5px; }
+.menu-lateral li.separador { margin-top: 25px; }
+
+.menu-lateral a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #FFF7ED;
+    font-weight: 600;
+}
+
+.menu-lateral a:hover,
+.menu-lateral a.activo {
+    background: #187C81;
+}
+
+/* === Contenido === */
+.contenido {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+.barra-superior {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.barra-superior a,
+.barra-superior button {
+    color: #fff;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.contenedor-perfil {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.tarjeta {
+    background: var(--fondo-tarjeta);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(77, 82, 180, 0.12);
+}
+
+/* === Cabecera y Avatar === */
+.cabecera-perfil {
+    position: relative;
+    height: 130px;
+    background: linear-gradient(135deg, var(--azul), var(--celeste));
+    border-radius: 10px;
+    margin-bottom: 55px;
+}
+
+.avatar-grande {
+    position: absolute;
+    left: 20px;
+    bottom: -40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--verde);
+    border: 5px solid var(--fondo-tarjeta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.info-usuario p { color: var(--gris); margin: 4px 0; font-size: 0.9rem; }
+
+/* === Datos y Estadísticas === */
+.fila-datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.dato span:first-child {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--gris);
+    font-weight: 600;
+}
+
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.stat {
+    background: #fff;
+    border: 2px solid var(--verde-claro);
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat span:first-child { font-size: 1.6rem; }
+.stat .numero { font-size: 1.2rem; font-weight: bold; }
+.stat .texto { font-size: 0.75rem; color: var(--gris); }
+
+/* === Logros === */
+.logros { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+
+.logro {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.6;
+}
+
+.logro.completado {
+    opacity: 1;
+    border: 2px solid var(--verde);
+}
+
+.logro span:first-child { font-size: 1.6rem; }
+.logro b { font-size: 0.9rem; }
+.logro p { font-size: 0.8rem; color: var(--gris); }
+
+/* === Progreso === */
+.barra-fondo {
+    height: 14px;
+    background: #fff;
+    border-radius: 50px;
+    border: 2px solid var(--verde-claro);
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.barra-progreso {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde), var(--celeste));
+    width: 0;
+    transition: width 0.8s;
+}
+
+.texto-progreso { color: var(--gris); text-align: center; margin-bottom: 15px; }
+
+.btn-continuar {
+    display: block;
+    background: var(--verde);
+    color: var(--texto);
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.btn-continuar:hover { filter: brightness(0.95); }
+
+/* === Responsivo === */
+@media (max-width: 900px) {
+    .contenedor-perfil { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 650px) {
+    .menu-lateral { position: static; width: 100%; border-bottom: 5px solid var(--naranja); border-right: none; }
+    .contenido { margin-left: 0; }
+    .estadisticas { grid-template-columns: 1fr; }
+}
